@@ -138,38 +138,6 @@ WHERE
 ROW_NUM=2
 --Q9. Show the manufacturers that sold cellphone in 2010 but didn't in 2009.
 
---Wrong ANS
-select 
-Manufacturer_name,count(Quantity) as cnt_of_qty
-from
-fact_transactions as T1
-right join DIM_MODEL AS T2 ON  T1.IDModel=T2.IDModel
-RIGHT JOIN DIM_MANUFACTURER AS T3 ON T3.IDManufacturer=T2.IDManufacturer
-RIGHT JOIN DIM_DATE AS T4 ON T4.DATE=T1.Date
-WHERE
-YEAR=2010 
-GROUP BY
-Manufacturer_Name
-HAVING
-count(Quantity)>0
-Except 
-select 
-Manufacturer_name,count(Quantity) as cnt_of_qty
-from
-fact_transactions as T1
-right join DIM_MODEL AS T2 ON  T1.IDModel=T2.IDModel
-RIGHT JOIN DIM_MANUFACTURER AS T3 ON T3.IDManufacturer=T2.IDManufacturer
-RIGHT JOIN DIM_DATE AS T4 ON T4.DATE=T1.Date
-WHERE
-YEAR=2009
-GROUP BY
-Manufacturer_Name
-HAVING
-count(Quantity)>0
-ORDER BY
-cnt_of_qty DESC
-
-/**************************************************************/ --Correct ANS
 select 
 Manufacturer_name
 from
@@ -227,6 +195,6 @@ FROM
 CTE_CUST
 ORDER BY
 AVG_SPEND desc,avg_of_qty desc,Customer_Name
---even if i try to use the inline view on this, their is no customer who is giving sales in 2 consecutive years.
+
 
 
